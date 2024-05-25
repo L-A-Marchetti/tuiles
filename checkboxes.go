@@ -31,7 +31,7 @@ func SelectCheckBox(checkboxes []Checkbox, vector int) {
 			break
 		}
 	}
-	for i, _ := range checkboxes {
+	for i := range checkboxes {
 		if i == selector {
 			checkboxes[i].isSelected = true
 		}
