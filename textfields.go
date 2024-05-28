@@ -1,6 +1,9 @@
 package tuiles
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Textfield struct {
 	label, text string
@@ -49,6 +52,27 @@ func SelectTextField(textFields []Textfield, vector int) {
 	for i := range textFields {
 		if i == selector {
 			textFields[i].isSelected = true
+		}
+	}
+}
+
+func TextFieldErase(textFields []Textfield) {
+	for i, b := range textFields {
+		if b.isSelected && len(b.text) > 0 {
+			textFields[i].text = strings.TrimSpace(textFields[i].text[:len(textFields[i].text)-1]) // delete last character
+			break
+		}
+	}
+}
+
+func TextFieldWrite(textFields []Textfield, c string) {
+	for i, b := range textFields {
+		if b.text == "Write Here..." && b.isSelected {
+			textFields[i].text = ""
+		}
+		if b.isSelected {
+			textFields[i].text = textFields[i].text + c
+			break
 		}
 	}
 }
