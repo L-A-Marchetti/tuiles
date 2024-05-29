@@ -5,9 +5,9 @@ import (
 )
 
 type Button struct {
-	index                 int
-	label                 string
-	isSelected, IsClicked bool
+	index      int
+	label      string
+	isSelected bool
 }
 
 func CreateButtons(label ...string) []Button {
@@ -22,7 +22,6 @@ func CreateButtons(label ...string) []Button {
 			index:      ArchIndex,
 			label:      l,
 			isSelected: isSelected,
-			IsClicked:  false,
 		})
 	}
 	return buttons
@@ -52,20 +51,8 @@ func SelectButtons(buttons []Button) {
 	}
 }
 
-func ClickButton(buttons []Button) {
-	for i, b := range buttons {
-		if b.isSelected {
-			buttons[i].IsClicked = true
-			break
-		}
-	}
-}
-
-func ResetButton(buttons []Button) {
-	for i, b := range buttons {
-		if b.isSelected {
-			buttons[i].IsClicked = false
-			break
-		}
+func ClickButton(buttons Button, f func()) {
+	if buttons.isSelected {
+		f()
 	}
 }

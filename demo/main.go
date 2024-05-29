@@ -33,7 +33,10 @@ func main() {
 			tuiles.SelectButtons(buttons)
 		case "enter":
 			tuiles.DrawCheckBox(checkBoxes)
-			tuiles.ClickButton(buttons)
+			tuiles.ClickButton(buttons[0], func() { tuiles.ResetTextFields(textFields) })
+			tuiles.ClickButton(buttons[1], func() { tuiles.ResetCheckBoxes(checkBoxes) })
+			tuiles.ClickButton(buttons[2], func() { PrintTheResult(textFields, checkBoxes) })
+			tuiles.ClickButton(buttons[3], func() { tuiles.QuitApp() })
 		case "escape":
 			tuiles.QuitApp()
 		case "backspace":
@@ -41,28 +44,18 @@ func main() {
 		default:
 			tuiles.TextFieldWrite(textFields, c)
 		}
-		if buttons[0].IsClicked {
-			tuiles.ResetTextFields(textFields)
-		}
-		if buttons[1].IsClicked {
-			tuiles.ResetCheckBoxes(checkBoxes)
-		}
-		if buttons[2].IsClicked {
-			fmt.Println("Results :")
-			for _, tF := range textFields {
-				fmt.Printf("%s: [%s]\n", tF.Label, tF.Text)
-			}
-			for _, cB := range checkBoxes {
-				fmt.Printf("%s: [%v]\n", cB.Label, cB.IsChecked)
-			}
-			return
-		}
-		if buttons[3].IsClicked {
-			tuiles.QuitApp()
-		}
 		tuiles.PrintTextFields(textFields)
 		tuiles.PrintCheckBoxes(checkBoxes)
 		tuiles.PrintButtons(buttons)
-		tuiles.ResetButton(buttons)
+	}
+}
+
+func PrintTheResult(textFields []tuiles.Textfield, checkBoxes []tuiles.Checkbox) {
+	fmt.Println("Results :")
+	for _, tF := range textFields {
+		fmt.Printf("%s: [%s]\n", tF.Label, tF.Text)
+	}
+	for _, cB := range checkBoxes {
+		fmt.Printf("%s: [%v]\n", cB.Label, cB.IsChecked)
 	}
 }
