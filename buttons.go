@@ -60,3 +60,12 @@ func ClickButton(buttons []Button) {
 		}
 	}
 }
+
+func ResetButton(buttons []Button) {
+	for i, b := range buttons {
+		if b.isSelected {
+			buttons[i].IsClicked = false
+			break
+		}
+	}
+}

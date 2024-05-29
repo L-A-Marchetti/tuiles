@@ -63,5 +63,6 @@ func main() {
 		tuiles.PrintTextFields(textFields)
 		tuiles.PrintCheckBoxes(checkBoxes)
 		tuiles.PrintButtons(buttons)
+		tuiles.ResetButton(buttons)
 	}
 }
