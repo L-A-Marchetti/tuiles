@@ -30,15 +30,13 @@ func CreateTextFields(label ...string) []Textfield {
 }
 
 func PrintTextFields(textFields []Textfield) {
-	highlight := "\033[1m"
-	reset := "\033[0m"
-	lineStart := "\033[G"
-	highlightedField := "\033[3m\033[7m"
 	for _, b := range textFields {
 		if b.isSelected {
-			fmt.Printf("%s%s%s%s: %s%s%s\n", lineStart, highlight, b.label, reset, highlightedField, b.text, reset)
+			fmt.Printf("%s%s%s%s: %s%s%s\n", LineStart, SelColor, Bold, b.label, HighlightedField, b.text, Reset)
+			fmt.Print(BgColor)
 		} else {
-			fmt.Printf("%s%s: %s\n", lineStart, b.label, b.text)
+			fmt.Printf("%s%s%s: %s\n", LineStart, FgColor, b.label, b.text)
+			fmt.Print(BgColor)
 		}
 	}
 	fmt.Println()

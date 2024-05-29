@@ -3,11 +3,10 @@ package tuiles
 import "fmt"
 
 type Checkbox struct {
-	index             int
-	boxL, boxR, check byte
-	label             string
-	isChecked         bool
-	isSelected        bool
+	index      int
+	label      string
+	isChecked  bool
+	isSelected bool
 }
 
 func DrawCheckBox(checkboxes []Checkbox) {
@@ -34,7 +33,7 @@ func SelectCheckBox(checkboxes []Checkbox) {
 	}
 }
 
-func CreateCheckBoxes(boxL, boxR, check byte, label ...string) []Checkbox {
+func CreateCheckBoxes(label ...string) []Checkbox {
 	checkboxes := []Checkbox{}
 	for _, l := range label {
 		isSelected := false
@@ -44,9 +43,6 @@ func CreateCheckBoxes(boxL, boxR, check byte, label ...string) []Checkbox {
 		ArchIndex++
 		checkboxes = append(checkboxes, Checkbox{
 			index:      ArchIndex,
-			boxL:       boxL,
-			boxR:       boxR,
-			check:      check,
 			label:      l,
 			isChecked:  false,
 			isSelected: isSelected,
@@ -56,21 +52,22 @@ func CreateCheckBoxes(boxL, boxR, check byte, label ...string) []Checkbox {
 }
 
 func PrintCheckBoxes(checkBoxes []Checkbox) {
-	highlight := "\033[1m"
-	reset := "\033[0m"
-	lineStart := "\033[G"
 	for _, b := range checkBoxes {
 		if b.isChecked {
 			if b.isSelected {
-				fmt.Printf("%s%s%c%c%c %s%s\n", lineStart, highlight, b.boxL, b.check, b.boxR, b.label, reset)
+				fmt.Printf("%s%s%s%c%c%c %s%s\n", LineStart, SelColor, Bold, '[', 'X', ']', b.label, Reset)
+				fmt.Print(BgColor)
 			} else {
-				fmt.Printf("%s%c%c%c %s\n", lineStart, b.boxL, b.check, b.boxR, b.label)
+				fmt.Printf("%s%s%c%c%c %s\n", LineStart, FgColor, '[', 'X', ']', b.label)
+				fmt.Print(BgColor)
 			}
 		} else {
 			if b.isSelected {
-				fmt.Printf("%s%s%c %c %s%s\n", lineStart, highlight, b.boxL, b.boxR, b.label, reset)
+				fmt.Printf("%s%s%s%c %c %s%s\n", LineStart, SelColor, Bold, '[', ']', b.label, Reset)
+				fmt.Print(BgColor)
 			} else {
-				fmt.Printf("%s%c %c %s\n", lineStart, b.boxL, b.boxR, b.label)
+				fmt.Printf("%s%s%c %c %s\n", LineStart, FgColor, '[', ']', b.label)
+				fmt.Print(BgColor)
 			}
 		}
 	}
