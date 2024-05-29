@@ -7,7 +7,7 @@ import (
 
 type Textfield struct {
 	index       int
-	label, text string
+	Label, Text string
 	isSelected  bool
 }
 
@@ -21,9 +21,9 @@ func CreateTextFields(label ...string) []Textfield {
 		ArchIndex++
 		textFields = append(textFields, Textfield{
 			index:      ArchIndex,
-			label:      l,
+			Label:      l,
 			isSelected: isSelected,
-			text:       "Write Here...",
+			Text:       "Write Here...",
 		})
 	}
 	return textFields
@@ -32,10 +32,10 @@ func CreateTextFields(label ...string) []Textfield {
 func PrintTextFields(textFields []Textfield) {
 	for _, b := range textFields {
 		if b.isSelected {
-			fmt.Printf("%s%s%s%s: %s%s%s\n", LineStart, SelColor, Bold, b.label, HighlightedField, b.text, Reset)
+			fmt.Printf("%s%s%s%s: %s%s%s\n", LineStart, SelColor, Bold, b.Label, HighlightedField, b.Text, Reset)
 			fmt.Print(BgColor)
 		} else {
-			fmt.Printf("%s%s%s: %s\n", LineStart, FgColor, b.label, b.text)
+			fmt.Printf("%s%s%s: %s\n", LineStart, FgColor, b.Label, b.Text)
 			fmt.Print(BgColor)
 		}
 	}
@@ -55,8 +55,8 @@ func SelectTextField(textFields []Textfield) {
 
 func TextFieldErase(textFields []Textfield) {
 	for i, b := range textFields {
-		if b.isSelected && len(b.text) > 0 {
-			textFields[i].text = strings.TrimSpace(textFields[i].text[:len(textFields[i].text)-1]) // delete last character
+		if b.isSelected && len(b.Text) > 0 {
+			textFields[i].Text = strings.TrimSpace(textFields[i].Text[:len(textFields[i].Text)-1]) // delete last character
 			break
 		}
 	}
@@ -64,12 +64,18 @@ func TextFieldErase(textFields []Textfield) {
 
 func TextFieldWrite(textFields []Textfield, c string) {
 	for i, b := range textFields {
-		if b.text == "Write Here..." && b.isSelected {
-			textFields[i].text = ""
+		if b.Text == "Write Here..." && b.isSelected {
+			textFields[i].Text = ""
 		}
 		if b.isSelected {
-			textFields[i].text = textFields[i].text + c
+			textFields[i].Text = textFields[i].Text + c
 			break
 		}
+	}
+}
+
+func ResetTextFields(textFields []Textfield) {
+	for r := range textFields {
+		textFields[r].Text = "Write Here..."
 	}
 }

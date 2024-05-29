@@ -12,6 +12,7 @@ const (
 	Reset            = "\033[0m"
 	LineStart        = "\033[G"
 	HighlightedField = "\033[3m\033[7m"
+	ButtonField      = "\033[7m"
 )
 
 var (

@@ -4,18 +4,18 @@ import "fmt"
 
 type Checkbox struct {
 	index      int
-	label      string
-	isChecked  bool
+	Label      string
+	IsChecked  bool
 	isSelected bool
 }
 
 func DrawCheckBox(checkboxes []Checkbox) {
 	for i, b := range checkboxes {
 		if b.isSelected {
-			if !b.isChecked {
-				checkboxes[i].isChecked = true
+			if !b.IsChecked {
+				checkboxes[i].IsChecked = true
 			} else {
-				checkboxes[i].isChecked = false
+				checkboxes[i].IsChecked = false
 			}
 			break
 		}
@@ -43,8 +43,8 @@ func CreateCheckBoxes(label ...string) []Checkbox {
 		ArchIndex++
 		checkboxes = append(checkboxes, Checkbox{
 			index:      ArchIndex,
-			label:      l,
-			isChecked:  false,
+			Label:      l,
+			IsChecked:  false,
 			isSelected: isSelected,
 		})
 	}
@@ -53,23 +53,29 @@ func CreateCheckBoxes(label ...string) []Checkbox {
 
 func PrintCheckBoxes(checkBoxes []Checkbox) {
 	for _, b := range checkBoxes {
-		if b.isChecked {
+		if b.IsChecked {
 			if b.isSelected {
-				fmt.Printf("%s%s%s%c%c%c %s%s\n", LineStart, SelColor, Bold, '[', 'X', ']', b.label, Reset)
+				fmt.Printf("%s%s%s%c%c%c %s%s\n", LineStart, SelColor, Bold, '[', 'X', ']', b.Label, Reset)
 				fmt.Print(BgColor)
 			} else {
-				fmt.Printf("%s%s%c%c%c %s\n", LineStart, FgColor, '[', 'X', ']', b.label)
+				fmt.Printf("%s%s%c%c%c %s\n", LineStart, FgColor, '[', 'X', ']', b.Label)
 				fmt.Print(BgColor)
 			}
 		} else {
 			if b.isSelected {
-				fmt.Printf("%s%s%s%c %c %s%s\n", LineStart, SelColor, Bold, '[', ']', b.label, Reset)
+				fmt.Printf("%s%s%s%c %c %s%s\n", LineStart, SelColor, Bold, '[', ']', b.Label, Reset)
 				fmt.Print(BgColor)
 			} else {
-				fmt.Printf("%s%s%c %c %s\n", LineStart, FgColor, '[', ']', b.label)
+				fmt.Printf("%s%s%c %c %s\n", LineStart, FgColor, '[', ']', b.Label)
 				fmt.Print(BgColor)
 			}
 		}
 	}
 	fmt.Println()
+}
+
+func ResetCheckBoxes(checkBoxes []Checkbox) {
+	for r := range checkBoxes {
+		checkBoxes[r].IsChecked = false
+	}
 }
