@@ -6,6 +6,11 @@ import (
 	"os/exec"
 )
 
+var (
+	ArchIndex   int
+	GlobalIndex int = 1
+)
+
 func NewApp() {
 	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
@@ -22,4 +27,16 @@ func QuitApp() {
 	cmd2.Stdout = os.Stdout
 	cmd2.Run()
 	os.Exit(0)
+}
+
+func MoveDown() {
+	if GlobalIndex >= 1 && GlobalIndex < ArchIndex {
+		GlobalIndex++
+	}
+}
+
+func MoveUp() {
+	if GlobalIndex > 1 && GlobalIndex <= ArchIndex {
+		GlobalIndex--
+	}
 }

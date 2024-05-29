@@ -3,6 +3,7 @@ package tuiles
 import "fmt"
 
 type Checkbox struct {
+	index             int
 	boxL, boxR, check byte
 	label             string
 	isChecked         bool
@@ -22,17 +23,12 @@ func DrawCheckBox(checkboxes []Checkbox) {
 	}
 }
 
-func SelectCheckBox(checkboxes []Checkbox, vector int) {
-	selector := 0
+func SelectCheckBox(checkboxes []Checkbox) {
 	for i, b := range checkboxes {
 		if b.isSelected {
 			checkboxes[i].isSelected = false
-			selector = i + vector
-			break
 		}
-	}
-	for i := range checkboxes {
-		if i == selector {
+		if b.index == GlobalIndex {
 			checkboxes[i].isSelected = true
 		}
 	}
@@ -40,12 +36,14 @@ func SelectCheckBox(checkboxes []Checkbox, vector int) {
 
 func CreateCheckBoxes(boxL, boxR, check byte, label ...string) []Checkbox {
 	checkboxes := []Checkbox{}
-	for i, l := range label {
+	for _, l := range label {
 		isSelected := false
-		if i == 0 {
+		if ArchIndex == 0 {
 			isSelected = true
 		}
+		ArchIndex++
 		checkboxes = append(checkboxes, Checkbox{
+			index:      ArchIndex,
 			boxL:       boxL,
 			boxR:       boxR,
 			check:      check,
@@ -76,4 +74,5 @@ func PrintCheckBoxes(checkBoxes []Checkbox) {
 			}
 		}
 	}
+	fmt.Println()
 }

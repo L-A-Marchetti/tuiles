@@ -6,18 +6,21 @@ import (
 )
 
 type Textfield struct {
+	index       int
 	label, text string
 	isSelected  bool
 }
 
 func CreateTextFields(label ...string) []Textfield {
 	textFields := []Textfield{}
-	for i, l := range label {
+	for _, l := range label {
 		isSelected := false
-		if i == 0 {
+		if ArchIndex == 0 {
 			isSelected = true
 		}
+		ArchIndex++
 		textFields = append(textFields, Textfield{
+			index:      ArchIndex,
 			label:      l,
 			isSelected: isSelected,
 			text:       "Write Here...",
@@ -38,19 +41,15 @@ func PrintTextFields(textFields []Textfield) {
 			fmt.Printf("%s%s: %s\n", lineStart, b.label, b.text)
 		}
 	}
+	fmt.Println()
 }
 
-func SelectTextField(textFields []Textfield, vector int) {
-	selector := 0
+func SelectTextField(textFields []Textfield) {
 	for i, b := range textFields {
 		if b.isSelected {
 			textFields[i].isSelected = false
-			selector = i + vector
-			break
 		}
-	}
-	for i := range textFields {
-		if i == selector {
+		if b.index == GlobalIndex {
 			textFields[i].isSelected = true
 		}
 	}
